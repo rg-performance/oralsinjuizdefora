@@ -1,13 +1,11 @@
-/* Oral Sin Juiz de Fora — interações da LP */
+/* Oral Sin Juiz de Fora — interações da LP (v4) */
 (function () {
   "use strict";
 
   /* Header sticky shadow */
   var header = document.querySelector(".header");
   if (header) {
-    var onScroll = function () {
-      header.classList.toggle("is-stuck", window.scrollY > 12);
-    };
+    var onScroll = function () { header.classList.toggle("is-stuck", window.scrollY > 12); };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
   }
@@ -29,15 +27,12 @@
     });
   }
 
-  /* Scroll reveal */
-  var reveals = document.querySelectorAll(".reveal");
+  /* Reveal on scroll (suave) */
+  var reveals = document.querySelectorAll(".reveal, .stat");
   if ("IntersectionObserver" in window && reveals.length) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) {
-          e.target.classList.add("is-visible");
-          io.unobserve(e.target);
-        }
+        if (e.isIntersecting) { e.target.classList.add("is-visible"); io.unobserve(e.target); }
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
     reveals.forEach(function (el) { io.observe(el); });
@@ -45,7 +40,7 @@
     reveals.forEach(function (el) { el.classList.add("is-visible"); });
   }
 
-  /* Count-up stats */
+  /* Count-up dos números (sobem quando a seção aparece) */
   var stats = document.querySelectorAll("[data-count]");
   if ("IntersectionObserver" in window && stats.length) {
     var sObs = new IntersectionObserver(function (entries) {
@@ -55,13 +50,14 @@
         var target = parseFloat(el.getAttribute("data-count"));
         var suffix = el.getAttribute("data-suffix") || "";
         var decimals = (target % 1 !== 0) ? 1 : 0;
-        var start = null, dur = 1600;
+        var start = null, dur = 1700;
         var step = function (ts) {
           if (!start) start = ts;
           var p = Math.min((ts - start) / dur, 1);
           var eased = 1 - Math.pow(1 - p, 3);
           var val = (target * eased).toFixed(decimals);
-          el.textContent = (decimals ? val.replace(".", ",") : Math.floor(val).toLocaleString("pt-BR")) + suffix;
+          var shown = decimals ? val.replace(".", ",") : Math.floor(val).toLocaleString("pt-BR");
+          el.innerHTML = shown + (suffix ? '<span class="u">' + suffix + "</span>" : "");
           if (p < 1) requestAnimationFrame(step);
         };
         requestAnimationFrame(step);
@@ -81,6 +77,19 @@
       ans.style.maxHeight = open ? ans.scrollHeight + "px" : null;
     });
   });
+
+  /* Carrossel de depoimentos (setas prev/next) */
+  var track = document.querySelector(".tst-track");
+  if (track) {
+    var prev = document.querySelector(".tst-nav .prev");
+    var next = document.querySelector(".tst-nav .next");
+    var amount = function () {
+      var card = track.querySelector(".tst");
+      return card ? card.getBoundingClientRect().width + 22 : track.clientWidth * 0.8;
+    };
+    if (prev) prev.addEventListener("click", function () { track.scrollBy({ left: -amount(), behavior: "smooth" }); });
+    if (next) next.addEventListener("click", function () { track.scrollBy({ left: amount(), behavior: "smooth" }); });
+  }
 
   /* Form -> WhatsApp */
   var form = document.querySelector("#lead-form");
