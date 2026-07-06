@@ -112,4 +112,38 @@
   /* Footer year */
   var y = document.querySelector("#year");
   if (y) y.textContent = new Date().getFullYear();
+
+  /* Cursor personalizado (bolinha + anel) — só em ponteiro fino */
+  if (window.matchMedia && matchMedia("(pointer: fine)").matches) {
+    var dot = document.createElement("div"); dot.className = "cursor-dot";
+    var ring = document.createElement("div"); ring.className = "cursor-ring";
+    document.body.appendChild(dot); document.body.appendChild(ring);
+    document.body.classList.add("cursor-ready");
+
+    var mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my;
+    document.addEventListener("mousemove", function (e) {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + "px"; dot.style.top = my + "px";
+    });
+    (function loop() {
+      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+      ring.style.left = rx + "px"; ring.style.top = ry + "px";
+      requestAnimationFrame(loop);
+    })();
+
+    var hoverSel = "a, button, input, select, textarea, [role=\"button\"], .faq__q, .carousel__item, .tst, .pain__box, .treat";
+    document.addEventListener("mouseover", function (e) {
+      if (e.target.closest && e.target.closest(hoverSel)) ring.classList.add("is-hover");
+    });
+    document.addEventListener("mouseout", function (e) {
+      if (e.target.closest && e.target.closest(hoverSel)) {
+        var to = e.relatedTarget;
+        if (!to || !(to.closest && to.closest(hoverSel))) ring.classList.remove("is-hover");
+      }
+    });
+    document.addEventListener("mousedown", function () { ring.classList.add("is-down"); });
+    document.addEventListener("mouseup", function () { ring.classList.remove("is-down"); });
+    document.addEventListener("mouseleave", function () { dot.style.opacity = 0; ring.style.opacity = 0; });
+    document.addEventListener("mouseenter", function () { dot.style.opacity = 1; ring.style.opacity = 1; });
+  }
 })();
