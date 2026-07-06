@@ -164,51 +164,29 @@ body::before {
   background-size: 130px 130px; opacity: .08; mix-blend-mode: soft-light;
 }
 
-/* ---- luzes/orbs em movimento no fundo das seções ---- */
-.section--green, .section--dark, .stats, .section--white, .section--alt { overflow: hidden; }
-.section--green::before, .section--dark::before, .stats::before,
-.section--white::before, .section--alt::before {
-  content: ""; position: absolute; z-index: 0; pointer-events: none; border-radius: 50%;
-  width: 48vw; height: 48vw; max-width: 660px; max-height: 660px; top: -20%; left: -10%;
-  filter: blur(56px); animation: fxA 15s ease-in-out infinite;
-}
-.section--green::after, .section--dark::after, .stats::after,
-.section--white::after, .section--alt::after {
-  content: ""; position: absolute; z-index: 0; pointer-events: none; border-radius: 50%;
-  width: 42vw; height: 42vw; max-width: 600px; max-height: 600px; bottom: -24%; right: -8%;
-  filter: blur(56px); animation: fxB 19s ease-in-out infinite;
-}
-.section--green::before { background: radial-gradient(circle, rgba(255,255,255,.2), transparent 62%); }
-.section--green::after  { background: radial-gradient(circle, rgba(127,224,175,.3), transparent 62%); }
-.section--dark::before  { background: radial-gradient(circle, rgba(0,168,89,.34), transparent 62%); }
-.section--dark::after   { background: radial-gradient(circle, rgba(46,157,143,.26), transparent 62%); }
-.stats::before          { background: radial-gradient(circle, rgba(255,255,255,.22), transparent 62%); }
-.stats::after           { background: radial-gradient(circle, rgba(127,224,175,.3), transparent 62%); }
-.section--white::before { background: radial-gradient(circle, rgba(0,168,89,.14), transparent 62%); }
-.section--white::after  { background: radial-gradient(circle, rgba(27,122,70,.1), transparent 62%); }
-.section--alt::before   { background: radial-gradient(circle, rgba(0,168,89,.16), transparent 62%); }
-.section--alt::after    { background: radial-gradient(circle, rgba(27,122,70,.11), transparent 62%); }
+/* ---- luzes/orbs em movimento no fundo das seções (injetados via JS) ---- */
+.section--green, .section--dark, .stats, .section--white, .section--alt, .hero { overflow: hidden; }
+.fx-orbs { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.fx-orb { position: absolute; border-radius: 50%; filter: blur(52px); will-change: transform; }
+.fx-orb--a { width: 54vw; height: 54vw; max-width: 740px; max-height: 740px; top: -22%; left: -12%; }
+.fx-orb--b { width: 46vw; height: 46vw; max-width: 640px; max-height: 640px; bottom: -26%; right: -10%; }
+
+.section--green .fx-orb--a { background: radial-gradient(circle, rgba(255,255,255,.3), transparent 62%); }
+.section--green .fx-orb--b { background: radial-gradient(circle, rgba(127,224,175,.42), transparent 62%); }
+.section--dark  .fx-orb--a { background: radial-gradient(circle, rgba(0,168,89,.44), transparent 62%); }
+.section--dark  .fx-orb--b { background: radial-gradient(circle, rgba(46,157,143,.36), transparent 62%); }
+.stats          .fx-orb--a { background: radial-gradient(circle, rgba(255,255,255,.32), transparent 62%); }
+.stats          .fx-orb--b { background: radial-gradient(circle, rgba(127,224,175,.42), transparent 62%); }
+.hero           .fx-orb--a { background: radial-gradient(circle, rgba(0,168,89,.28), transparent 65%); }
+.hero           .fx-orb--b { background: radial-gradient(circle, rgba(27,122,70,.22), transparent 65%); }
+.section--white .fx-orb--a { background: radial-gradient(circle, rgba(0,168,89,.18), transparent 62%); }
+.section--white .fx-orb--b { background: radial-gradient(circle, rgba(27,122,70,.13), transparent 62%); }
+.section--alt   .fx-orb--a { background: radial-gradient(circle, rgba(0,168,89,.2), transparent 62%); }
+.section--alt   .fx-orb--b { background: radial-gradient(circle, rgba(27,122,70,.14), transparent 62%); }
 
 .section > .container, .stats > .container, .carousel-section > .container,
-.carousel-section > .carousel__track, .carousel-section > .carousel__cta { position: relative; z-index: 2; }
-
-@keyframes fxA {
-  0%   { transform: translate(0,0) scale(1); }
-  30%  { transform: translate(26%,18%) scale(1.24); }
-  60%  { transform: translate(12%,34%) scale(1.12); }
-  100% { transform: translate(0,0) scale(1); }
-}
-@keyframes fxB {
-  0%   { transform: translate(0,0) scale(1); }
-  30%  { transform: translate(-24%,-14%) scale(1.16); }
-  60%  { transform: translate(-34%,10%) scale(1.28); }
-  100% { transform: translate(0,0) scale(1); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .section--green::before, .section--green::after, .section--dark::before, .section--dark::after,
-  .stats::before, .stats::after, .section--white::before, .section--white::after,
-  .section--alt::before, .section--alt::after, .hero::before, .hero::after { animation: none; }
-}
+.carousel-section > .carousel__track, .carousel-section > .carousel__cta,
+.hero > .container { position: relative; z-index: 2; }
 
 /* ---- cursor personalizado (bolinha + anel) ---- */
 @media (pointer: fine) { body.cursor-ready, body.cursor-ready * { cursor: none !important; } }
@@ -297,9 +275,7 @@ body::before {
 
 /* ============================== HERO (Sessão 1) — fundo branco ======= */
 .hero { padding: 138px 0 82px; background: #fff; position: relative; overflow: hidden; }
-.hero { overflow: hidden; }
-.hero::before { content: ""; position: absolute; z-index: 0; top: -28%; right: -10%; width: 580px; height: 580px; border-radius: 50%; background: radial-gradient(circle, rgba(0,168,89,.2), transparent 70%); pointer-events: none; filter: blur(40px); animation: fxB 17s ease-in-out infinite; }
-.hero::after { content: ""; position: absolute; z-index: 0; bottom: -20%; left: -12%; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(27,122,70,.14), transparent 70%); pointer-events: none; filter: blur(40px); animation: fxA 21s ease-in-out infinite; }
+/* orbs do hero são injetados via JS (.fx-orbs) — pseudo-elementos removidos */
 .hero__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; position: relative; }
 .hero__badge {
   display: inline-flex; align-items: center; gap: 10px; background: #fff;
@@ -326,7 +302,7 @@ body::before {
 .hero__bg {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background: url("../img/fachada-oralsin.png") center/cover no-repeat;
-  opacity: .07;
+  opacity: .08; filter: blur(4px); transform: scale(1.06);
 }
 .hero .container { position: relative; z-index: 2; }
 

@@ -127,6 +127,45 @@
   var y = document.querySelector("#year");
   if (y) y.textContent = new Date().getFullYear();
 
+  /* Orbs de luz — injeta, faz flutuar (mais rápido) e seguir o mouse */
+  (function () {
+    var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var secs = document.querySelectorAll(".section--green,.section--dark,.stats,.section--white,.section--alt,.hero");
+    var layers = [];
+    secs.forEach(function (sec) {
+      if (getComputedStyle(sec).position === "static") sec.style.position = "relative";
+      var layer = document.createElement("div"); layer.className = "fx-orbs";
+      var a = document.createElement("span"); a.className = "fx-orb fx-orb--a";
+      var b = document.createElement("span"); b.className = "fx-orb fx-orb--b";
+      layer.appendChild(a); layer.appendChild(b);
+      sec.insertBefore(layer, sec.firstChild);
+      layers.push({ a: a, b: b });
+    });
+    if (reduce || !layers.length) return;
+
+    var tmx = 0, tmy = 0, mx = 0, my = 0;
+    window.addEventListener("mousemove", function (e) {
+      tmx = (e.clientX / window.innerWidth - 0.5) * 2;
+      tmy = (e.clientY / window.innerHeight - 0.5) * 2;
+    }, { passive: true });
+
+    function loop(t) {
+      mx += (tmx - mx) * 0.06; my += (tmy - my) * 0.06;
+      var s = t * 0.001;
+      for (var k = 0; k < layers.length; k++) {
+        var o = layers[k], p = k * 0.9;
+        var ax = Math.sin(s * 0.9 + p) * 72 + mx * 60;
+        var ay = Math.cos(s * 0.75 + p) * 60 + my * 60;
+        o.a.style.transform = "translate(" + ax + "px," + ay + "px) scale(" + (1 + 0.1 * Math.sin(s * 0.6 + p)) + ")";
+        var bx = Math.cos(s * 0.72 + p) * 84 - mx * 70;
+        var by = Math.sin(s * 0.82 + p) * 64 - my * 70;
+        o.b.style.transform = "translate(" + bx + "px," + by + "px) scale(" + (1 + 0.12 * Math.cos(s * 0.5 + p)) + ")";
+      }
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  })();
+
   /* Cursor personalizado (bolinha + anel) — só em ponteiro fino */
   if (window.matchMedia && matchMedia("(pointer: fine)").matches) {
     var dot = document.createElement("div"); dot.className = "cursor-dot";
