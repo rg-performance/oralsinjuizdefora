@@ -236,6 +236,25 @@ section { position: relative; }
 
 .hero__media { position: relative; }
 .hero__photo { border-radius: var(--radius-lg); width: 100%; aspect-ratio: 3/4; box-shadow: var(--shadow-lg); }
+
+/* fachada de fundo (ambientada, baixa opacidade) */
+.hero__bg {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: url("../img/fachada-oralsin.jpg") center/cover no-repeat;
+  opacity: .07;
+}
+.hero .container { position: relative; z-index: 2; }
+
+/* moldura da foto com fallback p/ placeholder */
+.photo-frame { position: relative; overflow: hidden; }
+.photo-frame .photo-ph { position: absolute; inset: 0; }
+.photo-frame .photo-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* logo PNG com fallback para a versão SVG */
+.logo__png { height: 42px; width: auto; display: block; }
+.logo__svg { display: flex; align-items: center; gap: 11px; }
+.logo:has(.logo__png) .logo__svg { display: none; }
+.footer .logo__png { height: 46px; }
 .hero__card { position: absolute; background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 18px; display: flex; align-items: center; gap: 12px; }
 .hero__card--a { left: -20px; top: 30px; }
 .hero__card--b { right: -16px; bottom: 50px; }
