@@ -127,6 +127,19 @@
   var y = document.querySelector("#year");
   if (y) y.textContent = new Date().getFullYear();
 
+  /* Player de vídeo (depoimentos) — play custom + controles nativos ao tocar */
+  document.querySelectorAll(".vid__play").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var wrap = btn.closest(".vid");
+      var video = wrap.querySelector(".vid__player");
+      if (!video) return;
+      video.setAttribute("controls", "");
+      wrap.classList.add("is-playing");
+      var p = video.play();
+      if (p && p.catch) p.catch(function () {});
+    });
+  });
+
   /* Orbs de luz — injeta, faz flutuar (mais rápido) e seguir o mouse */
   (function () {
     var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
