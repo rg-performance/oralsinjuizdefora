@@ -161,7 +161,7 @@ section { position: relative; }
 body::before {
   content: ""; position: fixed; inset: 0; z-index: 4; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 130px 130px; opacity: .04; mix-blend-mode: soft-light;
+  background-size: 130px 130px; opacity: .08; mix-blend-mode: soft-light;
 }
 
 /* ---- luzes/orbs em movimento no fundo das seções ---- */
@@ -169,31 +169,41 @@ body::before {
 .section--green::before, .section--dark::before, .stats::before,
 .section--white::before, .section--alt::before {
   content: ""; position: absolute; z-index: 0; pointer-events: none; border-radius: 50%;
-  width: 46vw; height: 46vw; max-width: 620px; max-height: 620px; top: -18%; left: -8%;
-  filter: blur(64px); animation: fxA 22s ease-in-out infinite;
+  width: 48vw; height: 48vw; max-width: 660px; max-height: 660px; top: -20%; left: -10%;
+  filter: blur(56px); animation: fxA 15s ease-in-out infinite;
 }
 .section--green::after, .section--dark::after, .stats::after,
 .section--white::after, .section--alt::after {
   content: ""; position: absolute; z-index: 0; pointer-events: none; border-radius: 50%;
-  width: 40vw; height: 40vw; max-width: 560px; max-height: 560px; bottom: -22%; right: -6%;
-  filter: blur(64px); animation: fxB 28s ease-in-out infinite;
+  width: 42vw; height: 42vw; max-width: 600px; max-height: 600px; bottom: -24%; right: -8%;
+  filter: blur(56px); animation: fxB 19s ease-in-out infinite;
 }
-.section--green::before { background: radial-gradient(circle, rgba(255,255,255,.12), transparent 62%); }
-.section--green::after  { background: radial-gradient(circle, rgba(127,224,175,.18), transparent 62%); }
-.section--dark::before  { background: radial-gradient(circle, rgba(0,168,89,.22), transparent 62%); }
-.section--dark::after   { background: radial-gradient(circle, rgba(46,157,143,.16), transparent 62%); }
-.stats::before          { background: radial-gradient(circle, rgba(255,255,255,.13), transparent 62%); }
-.stats::after           { background: radial-gradient(circle, rgba(127,224,175,.18), transparent 62%); }
-.section--white::before { background: radial-gradient(circle, rgba(0,168,89,.08), transparent 62%); }
-.section--white::after  { background: radial-gradient(circle, rgba(27,122,70,.05), transparent 62%); }
-.section--alt::before   { background: radial-gradient(circle, rgba(0,168,89,.09), transparent 62%); }
-.section--alt::after    { background: radial-gradient(circle, rgba(27,122,70,.06), transparent 62%); }
+.section--green::before { background: radial-gradient(circle, rgba(255,255,255,.2), transparent 62%); }
+.section--green::after  { background: radial-gradient(circle, rgba(127,224,175,.3), transparent 62%); }
+.section--dark::before  { background: radial-gradient(circle, rgba(0,168,89,.34), transparent 62%); }
+.section--dark::after   { background: radial-gradient(circle, rgba(46,157,143,.26), transparent 62%); }
+.stats::before          { background: radial-gradient(circle, rgba(255,255,255,.22), transparent 62%); }
+.stats::after           { background: radial-gradient(circle, rgba(127,224,175,.3), transparent 62%); }
+.section--white::before { background: radial-gradient(circle, rgba(0,168,89,.14), transparent 62%); }
+.section--white::after  { background: radial-gradient(circle, rgba(27,122,70,.1), transparent 62%); }
+.section--alt::before   { background: radial-gradient(circle, rgba(0,168,89,.16), transparent 62%); }
+.section--alt::after    { background: radial-gradient(circle, rgba(27,122,70,.11), transparent 62%); }
 
 .section > .container, .stats > .container, .carousel-section > .container,
 .carousel-section > .carousel__track, .carousel-section > .carousel__cta { position: relative; z-index: 2; }
 
-@keyframes fxA { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(10%,12%) scale(1.15); } }
-@keyframes fxB { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-12%,-8%) scale(1.1); } }
+@keyframes fxA {
+  0%   { transform: translate(0,0) scale(1); }
+  30%  { transform: translate(26%,18%) scale(1.24); }
+  60%  { transform: translate(12%,34%) scale(1.12); }
+  100% { transform: translate(0,0) scale(1); }
+}
+@keyframes fxB {
+  0%   { transform: translate(0,0) scale(1); }
+  30%  { transform: translate(-24%,-14%) scale(1.16); }
+  60%  { transform: translate(-34%,10%) scale(1.28); }
+  100% { transform: translate(0,0) scale(1); }
+}
 @media (prefers-reduced-motion: reduce) {
   .section--green::before, .section--green::after, .section--dark::before, .section--dark::after,
   .stats::before, .stats::after, .section--white::before, .section--white::after,
@@ -288,8 +298,8 @@ body::before {
 /* ============================== HERO (Sessão 1) — fundo branco ======= */
 .hero { padding: 138px 0 82px; background: #fff; position: relative; overflow: hidden; }
 .hero { overflow: hidden; }
-.hero::before { content: ""; position: absolute; z-index: 0; top: -28%; right: -10%; width: 560px; height: 560px; border-radius: 50%; background: radial-gradient(circle, rgba(0,168,89,.12), transparent 70%); pointer-events: none; filter: blur(30px); animation: fxB 24s ease-in-out infinite; }
-.hero::after { content: ""; position: absolute; z-index: 0; bottom: -20%; left: -12%; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(27,122,70,.08), transparent 70%); pointer-events: none; filter: blur(30px); animation: fxA 28s ease-in-out infinite; }
+.hero::before { content: ""; position: absolute; z-index: 0; top: -28%; right: -10%; width: 580px; height: 580px; border-radius: 50%; background: radial-gradient(circle, rgba(0,168,89,.2), transparent 70%); pointer-events: none; filter: blur(40px); animation: fxB 17s ease-in-out infinite; }
+.hero::after { content: ""; position: absolute; z-index: 0; bottom: -20%; left: -12%; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(27,122,70,.14), transparent 70%); pointer-events: none; filter: blur(40px); animation: fxA 21s ease-in-out infinite; }
 .hero__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; position: relative; }
 .hero__badge {
   display: inline-flex; align-items: center; gap: 10px; background: #fff;
