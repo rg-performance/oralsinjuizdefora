@@ -434,7 +434,12 @@ body::before {
 .carousel__item { flex: 0 0 clamp(300px, 34vw, 440px); scroll-snap-align: start; border-radius: var(--radius); overflow: hidden; aspect-ratio: 1/1; }
 .carousel__item .ph { width: 100%; height: 100%; }
 .carousel__item img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.carousel__cta { text-align: center; margin-top: 40px; }
+.carousel__nav { display: flex; gap: 12px; justify-content: center; margin-top: 26px; position: relative; z-index: 2; }
+.carousel__nav button { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.22); display: grid; place-items: center; transition: background .2s, transform .2s; }
+.carousel__nav button:hover { background: #fff; transform: translateY(-1px); }
+.carousel__nav button:hover svg { color: var(--dark); }
+.carousel__nav button svg { width: 22px; height: 22px; color: #fff; }
+.carousel__cta { text-align: center; margin-top: 32px; }
 
 /* ============================== TESTIMONIALS (Sessão 8) — fundo verde + carrossel = */
 .google-badge {

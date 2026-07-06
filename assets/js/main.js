@@ -91,6 +91,20 @@
     if (next) next.addEventListener("click", function () { track.scrollBy({ left: amount(), behavior: "smooth" }); });
   }
 
+  /* Carrossel de resultados (antes/depois) — setas prev/next */
+  var cTrack = document.querySelector(".carousel__track");
+  var cNav = document.querySelector(".carousel__nav");
+  if (cTrack && cNav) {
+    var cAmount = function () {
+      var item = cTrack.querySelector(".carousel__item");
+      return item ? item.getBoundingClientRect().width + 6 : cTrack.clientWidth * 0.8;
+    };
+    var cPrev = cNav.querySelector(".prev");
+    var cNext = cNav.querySelector(".next");
+    if (cPrev) cPrev.addEventListener("click", function () { cTrack.scrollBy({ left: -cAmount() * 2, behavior: "smooth" }); });
+    if (cNext) cNext.addEventListener("click", function () { cTrack.scrollBy({ left: cAmount() * 2, behavior: "smooth" }); });
+  }
+
   /* Form -> WhatsApp */
   var form = document.querySelector("#lead-form");
   if (form) {
