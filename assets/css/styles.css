@@ -240,7 +240,7 @@ section { position: relative; }
 /* fachada de fundo (ambientada, baixa opacidade) */
 .hero__bg {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background: url("../img/fachada-oralsin.jpg") center/cover no-repeat;
+  background: url("../img/fachada-oralsin.png") center/cover no-repeat;
   opacity: .07;
 }
 .hero .container { position: relative; z-index: 2; }
