@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;0,800;1,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=22" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=23" />
 
   <script type="application/ld+json">
   {
@@ -580,9 +580,11 @@
         <h2>Conteúdo para você cuidar do seu sorriso</h2>
         <p style="color:var(--muted);">Informação de confiança sobre implantes, próteses e saúde bucal na maturidade.</p>
       </div>
-      <div class="blog__grid">
+      <div class="blog__carousel reveal">
+        <button class="blog__nav blog__nav--prev" aria-label="Ver anteriores" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <div class="blog__track" id="blogTrack">
         <a href="blog/implante-dentario-acima-60-anos.html" class="post reveal">
-          <img class="post__img" src="assets/img/proc-implante.jpg" alt="Implante dentário acima dos 60 anos" loading="lazy" />
+          <img class="post__img" src="assets/img/Idosa-no-dentista_Foto-Magnific.jpg" alt="Implante dentário acima dos 60 anos" loading="lazy" />
           <div class="post__body">
             <span class="post__cat">Implantes</span>
             <h3>Implante dentário acima dos 60 anos: é seguro?</h3>
@@ -591,7 +593,7 @@
           </div>
         </a>
         <a href="blog/protese-fixa-vs-dentadura.html" class="post reveal" data-delay="1">
-          <img class="post__img" src="assets/img/proc-protese-protocolo.jpg" alt="Prótese fixa versus dentadura" loading="lazy" />
+          <img class="post__img" src="assets/img/Proteses-dentarias-em-Portugal-Precos.jpeg" alt="Prótese fixa versus dentadura" loading="lazy" />
           <div class="post__body">
             <span class="post__cat">Próteses</span>
             <h3>Prótese fixa x dentadura: qual a melhor escolha?</h3>
@@ -600,7 +602,7 @@
           </div>
         </a>
         <a href="blog/carga-imediata-dentes-fixos-mesmo-dia.html" class="post reveal" data-delay="2">
-          <img class="post__img" src="assets/img/proc-carga-imediata.jpg" alt="Carga imediata — dentes fixos no mesmo dia" loading="lazy" />
+          <img class="post__img" src="assets/img/images.jpg" alt="Carga imediata — dentes fixos no mesmo dia" loading="lazy" />
           <div class="post__body">
             <span class="post__cat">Tratamentos</span>
             <h3>Carga imediata: dentes fixos no mesmo dia?</h3>
@@ -609,7 +611,7 @@
           </div>
         </a>
         <a href="blog/quanto-tempo-dura-implante-dentario.html" class="post reveal">
-          <img class="post__img" src="assets/img/proc-coroas.jpg" alt="Durabilidade do implante dentário" loading="lazy" />
+          <img class="post__img" src="assets/img/images%20(1).jpg" alt="Durabilidade do implante dentário" loading="lazy" />
           <div class="post__body">
             <span class="post__cat">Implantes</span>
             <h3>Quanto tempo dura um implante dentário?</h3>
@@ -618,7 +620,7 @@
           </div>
         </a>
         <a href="blog/implante-dentario-doi.html" class="post reveal" data-delay="1">
-          <img class="post__img" src="assets/img/proc-zigomatico.jpg" alt="A cirurgia de implante dentário dói?" loading="lazy" />
+          <img class="post__img" src="assets/img/images%20(2).jpg" alt="A cirurgia de implante dentário dói?" loading="lazy" />
           <div class="post__body">
             <span class="post__cat">Implantes</span>
             <h3>Implante dentário dói? A verdade sobre a cirurgia</h3>
@@ -627,7 +629,7 @@
           </div>
         </a>
         <a href="blog/pos-operatorio-implante-dentario.html" class="post reveal" data-delay="2">
-          <img class="post__img" src="assets/img/proc-zirconia.jpg" alt="Cuidados no pós-operatório do implante" loading="lazy" />
+          <img class="post__img" src="assets/img/blog-pos-operatorio.jpg" alt="Cuidados no pós-operatório do implante" loading="lazy" />
           <div class="post__body">
             <span class="post__cat">Cuidados</span>
             <h3>Pós-operatório do implante: cuidados essenciais</h3>
@@ -636,7 +638,7 @@
           </div>
         </a>
         <a href="blog/implante-ou-ponte-dentaria.html" class="post reveal">
-          <img class="post__img" src="assets/img/1.webp" alt="Implante ou ponte dentária" loading="lazy" />
+          <img class="post__img" src="assets/img/images%20(3).jpg" alt="Implante ou ponte dentária" loading="lazy" />
           <div class="post__body">
             <span class="post__cat">Comparativos</span>
             <h3>Implante ou ponte dentária: qual a melhor opção?</h3>
@@ -645,7 +647,7 @@
           </div>
         </a>
         <a href="blog/rejeicao-implante-dentario.html" class="post reveal" data-delay="1">
-          <img class="post__img" src="assets/img/2.webp" alt="Rejeição de implante dentário" loading="lazy" />
+          <img class="post__img" src="assets/img/protese-fixa-implante-1024x683.webp" alt="Rejeição de implante dentário" loading="lazy" />
           <div class="post__body">
             <span class="post__cat">Implantes</span>
             <h3>Rejeição de implante dentário: causas e como evitar</h3>
@@ -653,6 +655,32 @@
             <span class="post__more">Ler artigo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
           </div>
         </a>
+        </div>
+        <button class="blog__nav blog__nav--next" aria-label="Ver próximos" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+      <div class="blog__more-wrap reveal">
+        <button class="btn btn--ghost blog__all-btn" id="blogAllBtn" type="button">Ver todos os Artigos</button>
+      </div>
+    </div>
+
+    <!-- Modal: todos os artigos -->
+    <div class="blog-modal" id="blogModal" aria-hidden="true">
+      <div class="blog-modal__overlay" data-close></div>
+      <div class="blog-modal__panel" role="dialog" aria-modal="true" aria-label="Todos os artigos">
+        <div class="blog-modal__head">
+          <h3>Todos os artigos</h3>
+          <button class="blog-modal__close" aria-label="Fechar" data-close type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        </div>
+        <div class="blog-modal__grid">
+          <a href="blog/implante-dentario-acima-60-anos.html" class="mpost"><img src="assets/img/Idosa-no-dentista_Foto-Magnific.jpg" alt="" loading="lazy" /><div><span class="post__cat">Implantes</span><h4>Implante dentário acima dos 60 anos: é seguro?</h4></div></a>
+          <a href="blog/protese-fixa-vs-dentadura.html" class="mpost"><img src="assets/img/Proteses-dentarias-em-Portugal-Precos.jpeg" alt="" loading="lazy" /><div><span class="post__cat">Próteses</span><h4>Prótese fixa x dentadura: qual a melhor escolha?</h4></div></a>
+          <a href="blog/carga-imediata-dentes-fixos-mesmo-dia.html" class="mpost"><img src="assets/img/images.jpg" alt="" loading="lazy" /><div><span class="post__cat">Tratamentos</span><h4>Carga imediata: dentes fixos no mesmo dia?</h4></div></a>
+          <a href="blog/quanto-tempo-dura-implante-dentario.html" class="mpost"><img src="assets/img/images%20(1).jpg" alt="" loading="lazy" /><div><span class="post__cat">Implantes</span><h4>Quanto tempo dura um implante dentário?</h4></div></a>
+          <a href="blog/implante-dentario-doi.html" class="mpost"><img src="assets/img/images%20(2).jpg" alt="" loading="lazy" /><div><span class="post__cat">Implantes</span><h4>Implante dentário dói? A verdade sobre a cirurgia</h4></div></a>
+          <a href="blog/pos-operatorio-implante-dentario.html" class="mpost"><img src="assets/img/blog-pos-operatorio.jpg" alt="" loading="lazy" /><div><span class="post__cat">Cuidados</span><h4>Pós-operatório do implante: cuidados essenciais</h4></div></a>
+          <a href="blog/implante-ou-ponte-dentaria.html" class="mpost"><img src="assets/img/images%20(3).jpg" alt="" loading="lazy" /><div><span class="post__cat">Comparativos</span><h4>Implante ou ponte dentária: qual a melhor opção?</h4></div></a>
+          <a href="blog/rejeicao-implante-dentario.html" class="mpost"><img src="assets/img/protese-fixa-implante-1024x683.webp" alt="" loading="lazy" /><div><span class="post__cat">Implantes</span><h4>Rejeição de implante dentário: causas e como evitar</h4></div></a>
+        </div>
       </div>
     </div>
   </section>
@@ -727,6 +755,13 @@
         <span>&copy; <span id="year">2026</span> Oral Sin Juiz de Fora. Todos os direitos reservados.</span>
         <span>Responsável Técnico: CRO-MG &middot; Conteúdo de caráter informativo.</span>
       </div>
+      <div class="footer__credit">
+        <a href="https://rgperformance.com.br" target="_blank" rel="noopener">
+          <span>Feito por</span>
+          <img src="assets/img/logo-rg.png" alt="RG Performance" onerror="this.remove()" />
+          <strong>RG Performance</strong>
+        </a>
+      </div>
     </div>
   </footer>
 
@@ -735,6 +770,6 @@
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-1.7-.9-2.9-1.6-4-3.5-.3-.5.3-.5.8-1.6.1-.2 0-.4 0-.5-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 1.9.8 2.7.9 3.6.8.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.5zM12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2z"/></svg>
   </a>
 
-  <script src="assets/js/main.js?v=22"></script>
+  <script src="assets/js/main.js?v=23"></script>
 </body>
 </html>

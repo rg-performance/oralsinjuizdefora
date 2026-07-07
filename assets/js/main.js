@@ -105,6 +105,38 @@
     if (cNext) cNext.addEventListener("click", function () { cTrack.scrollBy({ left: cAmount() * 2, behavior: "smooth" }); });
   }
 
+  /* Carrossel de blog (setas + estado das setas) */
+  var bTrack = document.getElementById("blogTrack");
+  if (bTrack) {
+    var bPrev = document.querySelector(".blog__nav--prev");
+    var bNext = document.querySelector(".blog__nav--next");
+    var bStep = function () {
+      var card = bTrack.querySelector(".post");
+      return card ? card.getBoundingClientRect().width + 24 : bTrack.clientWidth * 0.8;
+    };
+    var bSync = function () {
+      var max = bTrack.scrollWidth - bTrack.clientWidth - 2;
+      if (bPrev) bPrev.disabled = bTrack.scrollLeft <= 2;
+      if (bNext) bNext.disabled = bTrack.scrollLeft >= max;
+    };
+    if (bPrev) bPrev.addEventListener("click", function () { bTrack.scrollBy({ left: -bStep(), behavior: "smooth" }); });
+    if (bNext) bNext.addEventListener("click", function () { bTrack.scrollBy({ left: bStep(), behavior: "smooth" }); });
+    bTrack.addEventListener("scroll", bSync, { passive: true });
+    window.addEventListener("resize", bSync);
+    bSync();
+  }
+
+  /* Modal "Ver todos os artigos" */
+  var bModal = document.getElementById("blogModal");
+  var bAll = document.getElementById("blogAllBtn");
+  if (bModal && bAll) {
+    var openModal = function () { bModal.classList.add("is-open"); bModal.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden"; };
+    var closeModal = function () { bModal.classList.remove("is-open"); bModal.setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; };
+    bAll.addEventListener("click", openModal);
+    bModal.querySelectorAll("[data-close]").forEach(function (el) { el.addEventListener("click", closeModal); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && bModal.classList.contains("is-open")) closeModal(); });
+  }
+
   /* Form -> WhatsApp */
   var form = document.querySelector("#lead-form");
   if (form) {
