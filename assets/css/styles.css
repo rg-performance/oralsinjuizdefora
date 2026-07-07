@@ -224,8 +224,20 @@ body::before {
 .btn--outline:hover { border-color: var(--green); color: var(--green-deep); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
 .btn--outline-light { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,.35); }
 .btn--outline-light:hover { border-color: #fff; transform: translateY(-2px); }
+.btn--white { background: #fff; color: var(--green-deep); box-shadow: 0 12px 28px rgba(0,0,0,.18); }
+.btn--white:hover { background: #f2fbf6; color: var(--green-900); transform: translateY(-2px); box-shadow: 0 18px 34px rgba(0,0,0,.24); }
+.btn--white svg { color: var(--green); }
 .btn--lg { padding: 18px 34px; font-size: 1.08rem; }
 .btn--block { width: 100%; }
+
+/* ============================== CTA FINAL ========================== */
+.final-cta { text-align: center; scroll-margin-top: 90px; }
+.final-cta__inner { max-width: 720px; margin: 0 auto; }
+.final-cta__inner .eyebrow--light { margin-bottom: 22px; }
+.final-cta__inner h2 { font-size: clamp(1.9rem, 4.6vw, 3rem); line-height: 1.12; margin-bottom: 20px; }
+.final-cta__inner > p { color: #B7D6C6; font-size: 1.05rem; max-width: 560px; margin: 0 auto 34px; }
+.final-cta__btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.final-cta__btns .btn { min-width: 262px; }
 
 /* ============================== HEADER ============================== */
 .header {
@@ -664,8 +676,7 @@ body::before {
 .footer__credit { border-top: 1px solid var(--dark-border); padding: 20px 0 4px; display: flex; justify-content: center; }
 .footer__credit a { display: inline-flex; align-items: center; gap: 10px; color: var(--dark-muted, #9fb8ac); font-size: .82rem; opacity: .85; transition: opacity .2s; }
 .footer__credit a:hover { opacity: 1; }
-.footer__credit img { height: 26px; width: auto; }
-.footer__credit strong { color: #fff; font-family: var(--font-head); font-weight: 600; letter-spacing: .01em; }
+.footer__credit img { height: 30px; width: auto; }
 
 /* ============================== FLOATING WPP ======================== */
 .wpp-float { position: fixed; right: 22px; bottom: 22px; z-index: 80; width: 62px; height: 62px; border-radius: 50%; background: #25D366; display: grid; place-items: center; box-shadow: 0 14px 30px rgba(37,211,102,.5); animation: pulse 2.6s infinite; }
@@ -734,6 +745,8 @@ body::before {
   .blog__track { grid-auto-columns: 82%; }
   .blog__nav { display: none; }
   .blog-modal__grid { grid-template-columns: 1fr; }
+  .final-cta__btns { flex-direction: column; }
+  .final-cta__btns .btn { width: 100%; min-width: 0; }
   .pain__boxes { grid-template-columns: 1fr 1fr; gap: 12px; }
   .hero__card--a { left: 6px; top: 10px; padding: 12px 14px; }
   .hero__card--b { right: 6px; bottom: 10px; padding: 12px 14px; }
