@@ -215,10 +215,14 @@
     el.className = 'rg-consent';
     el.setAttribute('role', 'dialog');
     el.setAttribute('aria-label', 'Aviso de cookies');
+    /* o link tem que funcionar tanto da raiz quanto de /blog/ */
+    var base = /\/blog\//.test(window.location.pathname) ? '../' : '';
     el.innerHTML =
       '<p>Usamos cookies para entender como o site é usado e para exibir ' +
       'anúncios nossos em outras plataformas. Você pode recusar — o site ' +
-      'continua funcionando normalmente.</p>' +
+      'continua funcionando normalmente. Saiba mais na ' +
+      '<a href="' + base + 'politica-de-privacidade.html" style="color:#00c26e">' +
+      'Política de Privacidade</a>.</p>' +
       '<div><button type="button" class="rg-nao">Recusar</button>' +
       '<button type="button" class="rg-sim">Aceitar</button></div>';
     document.body.appendChild(el);
