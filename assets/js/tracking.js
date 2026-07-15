@@ -45,8 +45,11 @@
 
   var COOKIE = '_rg_attr';
   var DIAS = 90;
+  /* gbraid/wbraid substituem o gclid em trafego iOS com restricao de
+     privacidade. Sem eles, clique de iPhone vindo do Google seria contado
+     como organico — publico 50+ em JF tem muito iPhone. */
   var PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content',
-                'utm_term', 'gclid', 'fbclid', 'unidade'];
+                'utm_term', 'gclid', 'gbraid', 'wbraid', 'fbclid', 'unidade'];
 
   /* --- storage ----------------------------------------------------------- */
   function ler(nome) {
@@ -108,7 +111,7 @@
       utm_medium: attr.utm_medium || '',
       utm_campaign: attr.utm_campaign || '',
       utm_content: attr.utm_content || '',
-      gclid: attr.gclid || '',
+      gclid: attr.gclid || attr.gbraid || attr.wbraid || '',
       fbclid: attr.fbclid || '',
     };
   }
@@ -262,7 +265,7 @@
 
   /* --- codigo de referencia do WhatsApp ---------------------------------- */
   function fonte() {
-    if (attr.gclid) return 'GG';
+    if (attr.gclid || attr.gbraid || attr.wbraid) return 'GG';
     if (attr.fbclid) {
       var src = (attr.utm_source || '').toLowerCase();
       return src.indexOf('insta') > -1 || src === 'ig' ? 'IG' : 'FB';
