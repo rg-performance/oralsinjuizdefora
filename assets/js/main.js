@@ -150,7 +150,8 @@
         "*Nome:* " + encodeURIComponent(nome) + "%0A" +
         "*Telefone:* " + encodeURIComponent(tel) + "%0A" +
         "*Tratamento de interesse:* " + encodeURIComponent(trat);
-      var phone = form.getAttribute("data-wpp") || "5532999931447";
+      var phone = form.getAttribute("data-wpp");
+      if (!phone) return; /* sem unidade definida no data-wpp, nao envia */
       window.open("https://wa.me/" + phone + "?text=" + msg, "_blank");
     });
   }
