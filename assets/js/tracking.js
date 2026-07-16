@@ -208,7 +208,10 @@
          Sem transition de proposito: e a posicao inicial, ninguem ve a
          animacao, e transition aqui so adiciona um estado intermediario. */
       '.rg-consent-on .wpp-float{bottom:calc(var(--rg-banner-h,180px) + 16px)' +
-      ' !important}';
+      ' !important}' +
+      /* o cursor personalizado do site (z-index 9999) empatava com o banner e
+         sumia atras dele no desktop — sobe acima para continuar visivel */
+      '.cursor-dot,.cursor-ring{z-index:100000 !important}';
     document.head.appendChild(css);
 
     var el = document.createElement('div');
@@ -267,45 +270,32 @@
     gtag('event', 'conversion', { send_to: RG_TRACKING.adsId + '/' + label });
   }
 
-  /* --- codigo de referencia do WhatsApp ---------------------------------- */
-  function fonte() {
-    if (attr.gclid || attr.gbraid || attr.wbraid) return 'GG';
+  /* --- origem legivel no WhatsApp ---------------------------------------- */
+  /* A recepcao le a mensagem e precisa saber de onde a pessoa veio. Antes o
+     codigo era tecnico (RG-CENTRO-GG-...) e ninguem parseava; agora e uma
+     frase em portugues. A atribuicao completa (gclid, campanha) segue nos
+     eventos do GA4/Ads — quem casa a conversa com o anuncio e a plataforma,
+     nao a mensagem. Carrega SO a origem, nunca dado pessoal ou de saude. */
+  function origem() {
+    if (attr.gclid || attr.gbraid || attr.wbraid) return 'Google';
     if (attr.fbclid) {
       var src = (attr.utm_source || '').toLowerCase();
-      return src.indexOf('insta') > -1 || src === 'ig' ? 'IG' : 'FB';
+      return src.indexOf('insta') > -1 || src === 'ig' ? 'Instagram' : 'Facebook';
     }
-    return 'ORG';
+    return null; /* direto/organico: sem sufixo, mensagem limpa */
   }
 
-  function slugCampanha() {
-    var c = attr.utm_campaign;
-    if (!c) return 'DIRETO';
-    return c.normalize('NFD').replace(/[̀-ͯ]/g, '')
-            .replace(/[^a-zA-Z0-9]+/g, '')
-            .toUpperCase().slice(0, 12) || 'DIRETO';
-  }
-
-  function id4() {
-    var abc = 'abcdefghijklmnopqrstuvwxyz0123456789', r = '';
-    for (var i = 0; i < 4; i++) r += abc[Math.floor(Math.random() * abc.length)];
-    return r;
-  }
-
-  var TOKEN_UNIDADE = { centro: 'CENTRO', benfica: 'BENFICA', nao_atribuida: 'NA' };
-
-  /* Carrega SOMENTE unidade + campanha. Nunca dado pessoal ou de saude. */
-  function codigo(unidade) {
-    var tok = TOKEN_UNIDADE[unidade] || 'NA';
-    return 'RG-' + tok + '-' + fonte() + '-' + slugCampanha() + '-' + id4();
-  }
+  /* remove qualquer sufixo antigo (codigo [RG-...] ou "(Vim do ...)") antes
+     de remontar — o link e reescrito no load e de novo no clique */
+  var RE_SUFIXO = /\s*(?:\[RG-[^\]]*\]|\(Vim d[eo][^)]*\))\s*$/i;
 
   function montarLink(a, unidade) {
     var num = (a.getAttribute('href').match(/wa\.me\/(\d+)/) || [])[1];
     if (!num) return;
     var atual = new URL(a.href).searchParams.get('text');
-    var base = atual || TEXTO_PADRAO[unidade] || TEXTO_PADRAO.nao_atribuida;
-    base = base.replace(/\s*\[RG-[^\]]*\]\s*$/, '');
-    var texto = base + ' [' + codigo(unidade) + ']';
+    var base = (atual || TEXTO_PADRAO[unidade] || TEXTO_PADRAO.nao_atribuida).replace(RE_SUFIXO, '');
+    var org = origem();
+    var texto = org ? base + ' (Vim do ' + org + ')' : base;
     a.href = 'https://wa.me/' + num + '?text=' + encodeURIComponent(texto);
   }
 
