@@ -22,8 +22,8 @@
   var UNIDADE_INTERIOR = 'benfica';
 
   var UNIDADE_INFO = {
-    centro:  { nome: 'Unidade Centro',  end: 'R. Espírito Santo, 936 — Centro' },
-    benfica: { nome: 'Unidade Benfica', end: 'R. Diogo Álvares, 469 — Benfica' },
+    centro:  { nome: 'Unidade Centro',  nomeCurto: 'Centro',  end: 'R. Espírito Santo, 936 — Centro' },
+    benfica: { nome: 'Unidade Benfica', nomeCurto: 'Benfica', end: 'R. Diogo Álvares, 469 — Benfica' },
   };
 
   /* curto = como a resposta aparece na mensagem de WhatsApp.
@@ -53,11 +53,13 @@
     {
       id: 'tempo',
       titulo: 'Há quanto tempo você convive com isso?',
+      /* urgente = puxa a frase de "isso ja dura X" no resultado. So nos
+         baldes longos: com pouco tempo a frase soaria forcada. */
       opcoes: [
         { t: 'Menos de 1 ano', curto: 'menos de 1 ano' },
         { t: '1 a 3 anos', curto: '1 a 3 anos' },
-        { t: '3 a 10 anos', curto: '3 a 10 anos' },
-        { t: 'Mais de 10 anos', curto: 'mais de 10 anos' },
+        { t: '3 a 10 anos', curto: '3 a 10 anos', urgente: true },
+        { t: 'Mais de 10 anos', curto: 'mais de 10 anos', urgente: true },
       ],
     },
     {
@@ -73,10 +75,13 @@
     {
       id: 'para',
       titulo: 'O atendimento seria para quem?',
+      /* voz muda TODO o destinatario do resultado: quem responde por si le
+         "o seu caso"; quem pesquisa pelos pais/familiar le "o caso dessa
+         pessoa" — senao o filho leria como se tivesse a queixa. */
       opcoes: [
-        { t: 'Para mim', curto: 'para mim' },
-        { t: 'Para meu pai ou minha mãe', curto: 'para meu pai/minha mãe' },
-        { t: 'Para outro familiar', curto: 'para outro familiar' },
+        { t: 'Para mim', curto: 'para mim', voz: 'self' },
+        { t: 'Para meu pai ou minha mãe', curto: 'para meu pai/minha mãe', voz: 'terceiro' },
+        { t: 'Para outro familiar', curto: 'para outro familiar', voz: 'terceiro' },
       ],
     },
     {
@@ -93,17 +98,62 @@
   var TOTAL = PERGUNTAS.length;
 
   /* Regra CRO/CFO: nunca "voce e candidato aprovado" — indicacao e ato
-     clinico. Sempre ponte honesta para a conversa presencial. */
+     clinico. Sem preco, sem promessa de resultado, sem minimizar risco.
+     O resultado e montado a partir das respostas: a voz (self/terceiro) troca
+     o destinatario inteiro, {dor} entra do espelho, {tempo} entra quando o
+     caso e antigo, e a objecao escolhida puxa o acolhimento correspondente —
+     cada uma das 4, nao so o medo. */
   var COPY = {
-    espelhoTpl: 'Conviver com {dor} cansa — e não precisa ser assim para sempre.',
-    ponte: 'Pelo que você respondeu, o seu caso merece uma conversa presencial ' +
-      'com a Dra. Alice. É nela que ela examina, planeja e confirma qual ' +
-      'solução é indicada para você — cada caso é único.',
-    medo: 'E se o receio foi o que te segurou até aqui, saiba: essa primeira ' +
-      'conversa não tem procedimento nenhum. É um bate-papo com calma, para ' +
-      'você entender tudo antes de decidir qualquer coisa.',
     msgIntro: 'Olá! Vim através do Quiz do site e quero agendar um horário ' +
       'com a equipe da Dra. Alice.',
+
+    self: {
+      titulo: 'Bom sinal: existe um caminho para o seu caso',
+      espelho: 'Conviver com {dor} cansa — e não precisa ser assim para sempre.',
+      tempo: 'E, pelo que você contou, isso já acompanha você há {tempo} — ' +
+        'tempo mais que suficiente para buscar uma solução de verdade.',
+      ponte: 'Pelo que você respondeu, o seu caso merece uma conversa ' +
+        'presencial com a Dra. Alice. É nela que ela examina, planeja e ' +
+        'confirma qual solução é indicada para você — cada caso é único.',
+      objecao: {
+        medo: 'E se o receio foi o que te segurou até aqui, fique tranquilo: ' +
+          'essa primeira conversa não tem procedimento nenhum. É um bate-papo ' +
+          'com calma, para você entender tudo antes de decidir qualquer coisa.',
+        preco: 'E sobre o que cabe no seu momento: na conversa você recebe um ' +
+          'plano claro, com as opções e condições na mesa — sem surpresa e ' +
+          'sem compromisso.',
+        tempo: 'E se a rotina foi adiando, o primeiro passo é simples: a ' +
+          'conversa é rápida e marcada no horário que funciona para você.',
+        desconhecimento: 'E sim: existe solução fixa para muitos casos como o ' +
+          'seu. É exatamente isso que a Dra. Alice avalia e te explica ' +
+          'pessoalmente, com calma.',
+      },
+    },
+
+    terceiro: {
+      titulo: 'Bom sinal: existe um caminho para ajudar quem você ama',
+      espelho: 'Ver alguém que você ama convivendo com {dor} não é fácil — e a ' +
+        'boa notícia é que não precisa ser assim para sempre.',
+      tempo: 'E isso já dura {tempo}, pelo que você contou — tempo mais que ' +
+        'suficiente para buscar uma solução de verdade.',
+      ponte: 'Pelo que você respondeu, o caso dessa pessoa merece uma conversa ' +
+        'presencial com a Dra. Alice. É nela que ela examina, planeja e ' +
+        'confirma qual solução é indicada — cada caso é único. E você pode ' +
+        'estar junto em cada passo.',
+      objecao: {
+        medo: 'E se o receio foi o que segurou até aqui, fique tranquilo: essa ' +
+          'primeira conversa não tem procedimento nenhum. É um bate-papo com ' +
+          'calma, para entender tudo antes de decidir qualquer coisa.',
+        preco: 'E sobre o que cabe no momento de vocês: na conversa a equipe ' +
+          'apresenta um plano claro, com as opções e condições — sem surpresa ' +
+          'e sem compromisso.',
+        tempo: 'E se a rotina foi adiando, o primeiro passo é simples: a ' +
+          'conversa é rápida e marcada no melhor horário para vocês.',
+        desconhecimento: 'E sim: existe solução fixa para muitos casos. É ' +
+          'exatamente isso que a Dra. Alice avalia e explica pessoalmente, ' +
+          'com calma.',
+      },
+    },
   };
 
   var WPP_SVG = '<svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.003 0C7.164 0 .002 7.16.002 16c0 2.82.74 5.583 2.15 8.02L0 32l8.204-2.15A15.9 15.9 0 0 0 16.003 32C24.84 32 32 24.84 32 16S24.84 0 16.003 0zm0 29.2c-2.5 0-4.95-.67-7.088-1.94l-.508-.3-4.87 1.277 1.3-4.75-.33-.52A13.16 13.16 0 0 1 2.8 16c0-7.28 5.92-13.2 13.203-13.2 3.53 0 6.845 1.375 9.34 3.872a13.13 13.13 0 0 1 3.865 9.33c0 7.28-5.92 13.198-13.205 13.198zm7.24-9.885c-.397-.198-2.348-1.158-2.712-1.29-.363-.132-.628-.198-.892.2-.264.396-1.024 1.29-1.256 1.554-.23.264-.463.297-.86.1-.397-.2-1.676-.618-3.193-1.97-1.18-1.052-1.977-2.35-2.21-2.747-.23-.396-.024-.61.174-.807.178-.177.397-.462.595-.694.198-.23.264-.396.397-.66.132-.264.066-.495-.033-.694-.1-.198-.892-2.15-1.223-2.943-.322-.773-.65-.668-.892-.68l-.76-.014c-.264 0-.694.1-1.058.495-.363.396-1.388 1.356-1.388 3.31 0 1.953 1.42 3.84 1.618 4.104.198.264 2.796 4.27 6.775 5.986.947.41 1.686.653 2.262.836.95.302 1.815.26 2.498.157.762-.114 2.348-.96 2.68-1.884.33-.925.33-1.72.23-1.884-.098-.164-.362-.263-.76-.462z"/></svg>';
@@ -213,40 +263,47 @@
   function renderResultado() {
     mostrarProgresso(null);
 
-    /* A unidade roteada pela regiao vem em destaque; a outra fica como
-       alternativa clicavel — os dois botoes vao DIRETO para o wa.me, cada
-       um com o numero da propria unidade e a mesma mensagem do Quiz. */
+    /* Texto por voz + respostas. A unidade roteada pela regiao e apenas
+       SUGERIDA no texto; os dois botoes ficam lado a lado, ambos DIRETO no
+       wa.me com o numero da propria unidade e a mesma mensagem do Quiz.
+       Ninguem precisa rolar para achar a segunda unidade. */
+    var voz = respostas.para.voz || 'self';
+    var c = COPY[voz];
     var unidade = respostas.regiao.unidade;
     var outra = unidade === 'centro' ? 'benfica' : 'centro';
     var msg = encodeURIComponent(montarMensagem());
     function linkDe(u) { return 'https://wa.me/' + NUMEROS[u] + '?text=' + msg; }
 
-    var espelho = COPY.espelhoTpl.replace('{dor}', respostas.dor.espelho);
+    var espelho = c.espelho.replace('{dor}', respostas.dor.espelho);
+    var ponte = (respostas.tempo.urgente
+      ? c.tempo.replace('{tempo}', respostas.tempo.curto) + ' '
+      : '') + c.ponte;
+    var acolhimento = c.objecao[respostas.objecao.valor] || '';
+
+    function botao(u, reco) {
+      return '<a class="btn btn--wpp quiz-cta2' + (reco ? ' is-reco' : '') +
+        '" href="' + linkDe(u) + '" target="_blank" rel="noopener">' + WPP_SVG +
+        '<span><strong>' + esc(UNIDADE_INFO[u].nomeCurto) +
+        '</strong><small>no WhatsApp</small></span></a>';
+    }
 
     var html = '<div class="quiz-result">' +
       '<img class="quiz-result__img" src="assets/img/4T7A7618.jpg" ' +
       'alt="Dra. Alice Furtado conversando com um paciente na Oral Sin Juiz de Fora" />' +
       '<span class="eyebrow">Seu resultado</span>' +
-      '<h1 class="quiz-title">Bom sinal: existe caminho para o seu caso</h1>' +
+      '<h1 class="quiz-title">' + esc(c.titulo) + '</h1>' +
       '<p class="quiz-result__mirror">' + esc(espelho) + '</p>' +
-      '<p class="quiz-result__bridge">' + esc(COPY.ponte) + '</p>' +
-      (respostas.objecao.valor === 'medo'
-        ? '<p class="quiz-result__care">' + esc(COPY.medo) + '</p>'
-        : '') +
+      '<p class="quiz-result__bridge">' + esc(ponte) + '</p>' +
+      (acolhimento ? '<p class="quiz-result__care">' + esc(acolhimento) + '</p>' : '') +
       '<div class="quiz-result__proof">' +
       '<span class="stars">★★★★★</span>' +
       '<strong>Mais de 300 avaliações 5 estrelas nas duas unidades</strong>' +
       '<span>Dra. Alice Furtado · 11+ anos de experiência · Responsável técnica</span>' +
       '</div>' +
-      '<a class="btn btn--wpp" href="' + linkDe(unidade) + '" target="_blank" rel="noopener">' +
-      WPP_SVG + 'Chamar a ' + esc(UNIDADE_INFO[unidade].nome) + ' no WhatsApp →</a>' +
-      '<p class="quiz-result__unit">' + esc(UNIDADE_INFO[unidade].end) + '</p>' +
-      '<div class="quiz-result__alt">' +
-      '<span>Prefere a outra unidade?</span>' +
-      '<a class="btn btn--outline quiz-result__alt-btn" href="' + linkDe(outra) +
-      '" target="_blank" rel="noopener">' + WPP_SVG +
-      'Chamar a ' + esc(UNIDADE_INFO[outra].nome) + '</a>' +
-      '</div>' +
+      '<p class="quiz-result__pick">Fale agora no WhatsApp — sugerimos a ' +
+      '<strong>' + esc(UNIDADE_INFO[unidade].nomeCurto) + '</strong>, mais perto ' +
+      'da região que você indicou:</p>' +
+      '<div class="quiz-result__cta2">' + botao(unidade, true) + botao(outra, false) + '</div>' +
       '</div>' +
       '<button type="button" class="quiz-back" id="quizBack">← Voltar</button>';
     screen.innerHTML = html;

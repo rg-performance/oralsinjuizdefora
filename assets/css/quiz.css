@@ -117,19 +117,24 @@
 .quiz-result__proof strong { font-family: var(--font-head); font-size: 1.02rem; color: var(--ink); }
 .quiz-result__proof span { color: var(--muted); font-size: .96rem; }
 
-.quiz-result .btn--wpp {
-  width: 100%; justify-content: center; text-align: center;
-  padding: 19px 22px; font-size: 1.12rem; margin-top: 24px;
+.quiz-result__pick {
+  text-align: center; color: var(--ink); font-size: 1rem; line-height: 1.55;
+  margin: 24px 0 14px; padding-top: 20px; border-top: 1px solid #EAF2ED;
 }
-.quiz-result__unit { text-align: center; color: var(--muted); font-size: .95rem; margin-top: 12px; }
+.quiz-result__pick strong { color: var(--green-deep); }
 
-.quiz-result__alt {
-  display: flex; flex-direction: column; gap: 10px; align-items: center;
-  margin-top: 22px; padding-top: 20px; border-top: 1px solid #EAF2ED;
+/* dois CTAs lado a lado: nenhum "compete" empilhado, os dois sempre visiveis */
+.quiz-result__cta2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.quiz-cta2 {
+  flex-direction: column; gap: 5px; padding: 15px 8px; min-height: 78px;
+  white-space: normal; text-align: center; line-height: 1.15;
 }
-.quiz-result__alt > span { color: var(--muted); font-size: .95rem; }
-.quiz-result__alt-btn { width: 100%; justify-content: center; padding: 15px 20px; font-size: 1rem; }
-.quiz-result__alt-btn svg { width: 20px; height: 20px; }
+.quiz-cta2 svg { width: 26px; height: 26px; }
+.quiz-cta2 span { display: flex; flex-direction: column; gap: 1px; }
+.quiz-cta2 strong { font-family: var(--font-head); font-weight: 700; font-size: 1.12rem; }
+.quiz-cta2 small { font-size: .82rem; font-weight: 500; opacity: .92; }
+/* a unidade sugerida ganha um anel discreto — reforca sem esconder a outra */
+.quiz-cta2.is-reco { box-shadow: 0 0 0 3px rgba(0, 168, 89, .35), 0 12px 26px rgba(37, 211, 102, .3); }
 
 /* --- rodape enxuto ------------------------------------------------------- */
 .quiz-footer {
