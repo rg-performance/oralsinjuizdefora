@@ -72,7 +72,7 @@
     },
     {
       id: 'para',
-      titulo: 'A avaliação seria para quem?',
+      titulo: 'O atendimento seria para quem?',
       opcoes: [
         { t: 'Para mim', curto: 'para mim' },
         { t: 'Para meu pai ou minha mãe', curto: 'para meu pai/minha mãe' },
@@ -93,17 +93,16 @@
   var TOTAL = PERGUNTAS.length;
 
   /* Regra CRO/CFO: nunca "voce e candidato aprovado" — indicacao e ato
-     clinico. Sempre ponte honesta para a avaliacao presencial. */
+     clinico. Sempre ponte honesta para a conversa presencial. */
   var COPY = {
     espelhoTpl: 'Conviver com {dor} cansa — e não precisa ser assim para sempre.',
-    ponte: 'Pelo que você respondeu, o seu caso merece uma avaliação presencial. ' +
-      'É nela que a Dra. Alice examina, planeja e confirma qual solução é ' +
-      'indicada para você — cada caso é único.',
-    medo: 'E se o receio foi o que te segurou até aqui, saiba: a avaliação não ' +
-      'tem procedimento nenhum. É uma conversa, com calma, para você entender ' +
-      'tudo antes de decidir qualquer coisa.',
-    cta: 'Agendar minha avaliação gratuita no WhatsApp →',
-    msgIntro: 'Olá! Fiz o teste do site e quero agendar a avaliação gratuita ' +
+    ponte: 'Pelo que você respondeu, o seu caso merece uma conversa presencial ' +
+      'com a Dra. Alice. É nela que ela examina, planeja e confirma qual ' +
+      'solução é indicada para você — cada caso é único.',
+    medo: 'E se o receio foi o que te segurou até aqui, saiba: essa primeira ' +
+      'conversa não tem procedimento nenhum. É um bate-papo com calma, para ' +
+      'você entender tudo antes de decidir qualquer coisa.',
+    msgIntro: 'Olá! Vim através do Quiz do site e quero agendar um horário ' +
       'com a equipe da Dra. Alice.',
   };
 
@@ -190,16 +189,17 @@
       '<div class="quiz-intro">' +
       '<span class="eyebrow">Teste rápido · 2 minutos</span>' +
       '<h1 class="quiz-title">Descubra se o implante fixo é indicado para o seu caso</h1>' +
-      '<p class="quiz-sub">Responda 6 perguntas rápidas. No final, você já sai com a sua ' +
-      'avaliação gratuita encaminhada com a equipe da Dra. Alice.</p>' +
+      '<p class="quiz-sub">Responda 6 perguntas rápidas. No final, você fala direto no ' +
+      'WhatsApp com a equipe da Dra. Alice, na unidade mais perto de você.</p>' +
       '<button type="button" class="btn btn--green btn--lg quiz-start" id="quizStart">Começar →</button>' +
       '</div>';
     animar();
     ligarStart();
   }
 
-  function montarMensagem(unidade) {
+  function montarMensagem() {
     /* A mensagem E a captura do lead: recepcao e Shark leem tudo na chegada.
+       "Vim através do Quiz" identifica o canal logo na 1a linha.
        So respostas do quiz — nunca dado pessoal ou de saude alem delas.
        O tracking.js anexa a origem ("Vim do Google") no clique. */
     return COPY.msgIntro + '\n' +
@@ -213,13 +213,19 @@
   function renderResultado() {
     mostrarProgresso(null);
 
+    /* A unidade roteada pela regiao vem em destaque; a outra fica como
+       alternativa clicavel — os dois botoes vao DIRETO para o wa.me, cada
+       um com o numero da propria unidade e a mesma mensagem do Quiz. */
     var unidade = respostas.regiao.unidade;
-    var info = UNIDADE_INFO[unidade];
+    var outra = unidade === 'centro' ? 'benfica' : 'centro';
+    var msg = encodeURIComponent(montarMensagem());
+    function linkDe(u) { return 'https://wa.me/' + NUMEROS[u] + '?text=' + msg; }
+
     var espelho = COPY.espelhoTpl.replace('{dor}', respostas.dor.espelho);
-    var link = 'https://wa.me/' + NUMEROS[unidade] + '?text=' +
-      encodeURIComponent(montarMensagem(unidade));
 
     var html = '<div class="quiz-result">' +
+      '<img class="quiz-result__img" src="assets/img/4T7A7618.jpg" ' +
+      'alt="Dra. Alice Furtado conversando com um paciente na Oral Sin Juiz de Fora" />' +
       '<span class="eyebrow">Seu resultado</span>' +
       '<h1 class="quiz-title">Bom sinal: existe caminho para o seu caso</h1>' +
       '<p class="quiz-result__mirror">' + esc(espelho) + '</p>' +
@@ -232,10 +238,15 @@
       '<strong>Mais de 300 avaliações 5 estrelas nas duas unidades</strong>' +
       '<span>Dra. Alice Furtado · 11+ anos de experiência · Responsável técnica</span>' +
       '</div>' +
-      '<a class="btn btn--wpp" href="' + link + '" target="_blank" rel="noopener">' +
-      WPP_SVG + esc(COPY.cta) + '</a>' +
-      '<p class="quiz-result__unit">Você será atendido pela <strong>' + esc(info.nome) +
-      '</strong> — ' + esc(info.end) + '</p>' +
+      '<a class="btn btn--wpp" href="' + linkDe(unidade) + '" target="_blank" rel="noopener">' +
+      WPP_SVG + 'Chamar a ' + esc(UNIDADE_INFO[unidade].nome) + ' no WhatsApp →</a>' +
+      '<p class="quiz-result__unit">' + esc(UNIDADE_INFO[unidade].end) + '</p>' +
+      '<div class="quiz-result__alt">' +
+      '<span>Prefere a outra unidade?</span>' +
+      '<a class="btn btn--outline quiz-result__alt-btn" href="' + linkDe(outra) +
+      '" target="_blank" rel="noopener">' + WPP_SVG +
+      'Chamar a ' + esc(UNIDADE_INFO[outra].nome) + '</a>' +
+      '</div>' +
       '</div>' +
       '<button type="button" class="quiz-back" id="quizBack">← Voltar</button>';
     screen.innerHTML = html;

@@ -90,6 +90,12 @@
   background: #fff; border-radius: 18px; padding: 30px 26px;
   box-shadow: 0 16px 44px rgba(8, 54, 33, .10);
 }
+.quiz-result__img {
+  display: block; width: calc(100% + 52px); max-width: none;
+  margin: -30px -26px 22px;
+  border-radius: 18px 18px 0 0;
+  aspect-ratio: 16 / 10; object-fit: cover; object-position: 50% 45%;
+}
 .quiz-result .quiz-title { font-size: clamp(1.35rem, 4.2vw, 1.7rem); }
 .quiz-result__mirror {
   font-family: var(--font-head); font-weight: 600;
@@ -117,6 +123,14 @@
 }
 .quiz-result__unit { text-align: center; color: var(--muted); font-size: .95rem; margin-top: 12px; }
 
+.quiz-result__alt {
+  display: flex; flex-direction: column; gap: 10px; align-items: center;
+  margin-top: 22px; padding-top: 20px; border-top: 1px solid #EAF2ED;
+}
+.quiz-result__alt > span { color: var(--muted); font-size: .95rem; }
+.quiz-result__alt-btn { width: 100%; justify-content: center; padding: 15px 20px; font-size: 1rem; }
+.quiz-result__alt-btn svg { width: 20px; height: 20px; }
+
 /* --- rodape enxuto ------------------------------------------------------- */
 .quiz-footer {
   display: flex; flex-direction: column; gap: 4px; align-items: center;
@@ -128,4 +142,5 @@
   .quiz-intro { padding-top: 4vh; }
   .quiz-start { width: 100%; }
   .quiz-result { padding: 26px 20px; }
+  .quiz-result__img { width: calc(100% + 40px); margin: -26px -20px 20px; }
 }
