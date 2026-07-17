@@ -1,0 +1,131 @@
+/* ==========================================================================
+   Quiz Implante Fixo — /quiz
+   Carregado DEPOIS do styles.css: herda paleta, fontes e .btn do site.
+   Publico 50+: corpo minimo 18px, alvos de toque altos, contraste alto.
+   ========================================================================== */
+
+.quiz-body {
+  background: var(--green-soft-2);
+  font-size: 18px;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- topo (so a logo) --------------------------------------------------- */
+.quiz-top { display: flex; justify-content: center; padding: 26px 20px 4px; }
+.quiz-logo img { height: 44px; width: auto; display: block; }
+
+/* --- container ---------------------------------------------------------- */
+.quiz-wrap {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 20px 22px 48px;
+  flex: 1;
+}
+
+/* --- progresso ---------------------------------------------------------- */
+.quiz-progress { margin: 8px 0 26px; }
+.quiz-progress__label {
+  font-family: var(--font-head); font-weight: 600; font-size: .95rem;
+  color: var(--green-logo); display: block; margin-bottom: 9px;
+}
+.quiz-progress__bar {
+  height: 10px; border-radius: 999px; background: #DCEBE2; overflow: hidden;
+}
+.quiz-progress__bar span {
+  display: block; height: 100%; width: 0; border-radius: 999px;
+  background: linear-gradient(90deg, var(--green), var(--green-logo));
+  transition: width .3s ease;
+}
+
+/* --- telas -------------------------------------------------------------- */
+.quiz-screen { animation: quizIn .28s ease both; }
+@keyframes quizIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .quiz-screen { animation: none; } }
+
+.quiz-title {
+  font-size: clamp(1.5rem, 4.8vw, 1.95rem);
+  line-height: 1.24;
+  margin-bottom: 12px;
+}
+.quiz-sub { color: var(--muted); font-size: 1.06rem; line-height: 1.65; margin-bottom: 28px; }
+
+.quiz-intro { text-align: center; padding-top: 8vh; }
+.quiz-intro .eyebrow { margin-bottom: 16px; }
+.quiz-start { min-width: 240px; justify-content: center; }
+
+/* --- cards de resposta (avancam sozinhos no toque) ---------------------- */
+.quiz-opts { display: grid; gap: 14px; }
+.quiz-opt {
+  display: block; width: 100%; text-align: left;
+  background: #fff; border: 2px solid #E3EDE7; border-radius: 14px;
+  padding: 19px 20px; min-height: 66px;
+  font-family: var(--font-body); font-size: 1.06rem; line-height: 1.45;
+  color: var(--ink); cursor: pointer;
+  transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+.quiz-opt:hover, .quiz-opt:focus-visible {
+  border-color: var(--green);
+  box-shadow: 0 8px 22px rgba(0, 168, 89, .13);
+  transform: translateY(-1px);
+  outline: none;
+}
+.quiz-opt.is-picked { border-color: var(--green); background: var(--green-soft); }
+
+.quiz-back {
+  margin-top: 28px; padding: 12px 4px;
+  background: none; border: 0; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--font-body); font-size: 1rem; color: var(--muted);
+}
+.quiz-back:hover { color: var(--green-deep); }
+
+/* --- resultado ----------------------------------------------------------- */
+.quiz-result {
+  background: #fff; border-radius: 18px; padding: 30px 26px;
+  box-shadow: 0 16px 44px rgba(8, 54, 33, .10);
+}
+.quiz-result .quiz-title { font-size: clamp(1.35rem, 4.2vw, 1.7rem); }
+.quiz-result__mirror {
+  font-family: var(--font-head); font-weight: 600;
+  font-size: 1.12rem; line-height: 1.5; color: var(--green-deep);
+  margin-bottom: 14px;
+}
+.quiz-result__bridge { color: var(--ink); font-size: 1.05rem; line-height: 1.65; }
+.quiz-result__care {
+  background: var(--green-soft); border-left: 4px solid var(--green);
+  border-radius: 0 12px 12px 0; padding: 16px 18px; margin: 20px 0 0;
+  font-size: 1.02rem; line-height: 1.6; color: var(--ink);
+}
+.quiz-result__proof {
+  display: flex; flex-direction: column; gap: 4px;
+  margin: 22px 0 0; padding-top: 20px; border-top: 1px solid #EAF2ED;
+  text-align: center;
+}
+.quiz-result__proof .stars { color: #F5B301; letter-spacing: .12em; font-size: 1.05rem; }
+.quiz-result__proof strong { font-family: var(--font-head); font-size: 1.02rem; color: var(--ink); }
+.quiz-result__proof span { color: var(--muted); font-size: .96rem; }
+
+.quiz-result .btn--wpp {
+  width: 100%; justify-content: center; text-align: center;
+  padding: 19px 22px; font-size: 1.12rem; margin-top: 24px;
+}
+.quiz-result__unit { text-align: center; color: var(--muted); font-size: .95rem; margin-top: 12px; }
+
+/* --- rodape enxuto ------------------------------------------------------- */
+.quiz-footer {
+  display: flex; flex-direction: column; gap: 4px; align-items: center;
+  text-align: center; padding: 18px 22px 30px;
+  color: var(--muted); font-size: .85rem; line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+  .quiz-intro { padding-top: 4vh; }
+  .quiz-start { width: 100%; }
+  .quiz-result { padding: 26px 20px; }
+}

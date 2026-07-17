@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Descubra se o Implante Fixo é Para Você | Oral Sin Juiz de Fora</title>
+  <meta name="description" content="Responda 6 perguntas rápidas e descubra se o implante fixo é indicado para o seu caso. Avaliação gratuita com a equipe da Dra. Alice na Oral Sin Juiz de Fora." />
+  <link rel="canonical" href="https://oralsinjuizdefora.com.br/quiz" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png?v=29" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon-192.png?v=29" />
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/img/favicon-512.png?v=29" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png?v=29" />
+  <meta name="theme-color" content="#10603A" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Descubra se o Implante Fixo é Para Você | Oral Sin Juiz de Fora" />
+  <meta property="og:description" content="6 perguntas rápidas. No final, você já sai com a sua avaliação gratuita encaminhada." />
+  <meta property="og:locale" content="pt_BR" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;0,800;1,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=29" />
+  <link rel="stylesheet" href="assets/css/quiz.css?v=1" />
+  <script src="assets/js/tracking.js?v=3" defer></script>
+</head>
+<body class="quiz-body">
+
+  <!-- Sem header/nav de proposito: pagina de destino de anuncio, foco total
+       no fluxo. A logo leva de volta ao site para quem quiser sair. -->
+  <div class="quiz-top">
+    <a href="/" class="quiz-logo" aria-label="Voltar ao site da Oral Sin Juiz de Fora">
+      <img src="assets/img/logo-oralsin-v2-verde.png" alt="Oral Sin Implantes — Juiz de Fora" onerror="this.remove()" />
+    </a>
+  </div>
+
+  <!-- id="quiz" tambem alimenta o tracking: o listener global do
+       tracking.js registra secao:'quiz' no clique final de WhatsApp. -->
+  <section id="quiz" class="quiz-wrap">
+
+    <div class="quiz-progress" id="quizProgress" hidden>
+      <span class="quiz-progress__label" id="quizProgressLabel">Pergunta 1 de 6</span>
+      <div class="quiz-progress__bar" aria-hidden="true"><span id="quizProgressFill"></span></div>
+    </div>
+
+    <div class="quiz-screen" id="quizScreen" aria-live="polite">
+      <!-- Tela 0 estatica: aparece mesmo antes do JS carregar.
+           O quiz.js assume a partir do clique em "Começar". -->
+      <div class="quiz-intro">
+        <span class="eyebrow">Teste rápido · 2 minutos</span>
+        <h1 class="quiz-title">Descubra se o implante fixo é indicado para o seu caso</h1>
+        <p class="quiz-sub">
+          Responda 6 perguntas rápidas. No final, você já sai com a sua
+          avaliação gratuita encaminhada com a equipe da Dra. Alice.
+        </p>
+        <button type="button" class="btn btn--green btn--lg quiz-start" id="quizStart">Começar →</button>
+        <noscript>
+          <p class="quiz-sub" style="margin-top:24px;">
+            Para fazer o teste, ative o JavaScript — ou, se preferir,
+            <a href="/#agendar" style="color:var(--green-deep);font-weight:600;">agende sua avaliação direto pelo WhatsApp</a>.
+          </p>
+        </noscript>
+      </div>
+    </div>
+
+  </section>
+
+  <footer class="quiz-footer">
+    <span>Oral Sin Juiz de Fora · Centro e Benfica</span>
+    <span>Conteúdo de caráter informativo. A indicação de tratamento é feita apenas em avaliação clínica presencial.</span>
+  </footer>
+
+  <script src="assets/js/quiz.js?v=1"></script>
+</body>
+</html>
