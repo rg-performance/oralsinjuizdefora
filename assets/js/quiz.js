@@ -297,8 +297,8 @@
       (acolhimento ? '<p class="quiz-result__care">' + esc(acolhimento) + '</p>' : '') +
       '<div class="quiz-result__proof">' +
       '<span class="stars">★★★★★</span>' +
-      '<strong>Mais de 300 avaliações 5 estrelas nas duas unidades</strong>' +
-      '<span>Dra. Alice Furtado · 11+ anos de experiência · Responsável técnica</span>' +
+      '<strong>Mais de 120 avaliações 5 estrelas no Google</strong>' +
+      '<span>Dra. Alice Furtado, responsável técnica · +22 anos de tradição Oral Sin</span>' +
       '</div>' +
       '<p class="quiz-result__pick">Fale agora no WhatsApp — sugerimos a ' +
       '<strong>' + esc(UNIDADE_INFO[unidade].nomeCurto) + '</strong>, mais perto ' +
