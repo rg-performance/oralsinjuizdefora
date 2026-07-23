@@ -103,6 +103,8 @@
   margin-bottom: 14px;
 }
 .quiz-result__bridge { color: var(--ink); font-size: 1.05rem; line-height: 1.65; }
+/* nome do procedimento sugerido em destaque dentro da frase */
+.quiz-result__bridge strong { color: var(--green-deep); font-weight: 700; }
 .quiz-result__care {
   background: var(--green-soft); border-left: 4px solid var(--green);
   border-radius: 0 12px 12px 0; padding: 16px 18px; margin: 20px 0 0;
