@@ -229,6 +229,9 @@ body::before {
 .btn--white svg { color: var(--green); }
 .btn--lg { padding: 18px 34px; font-size: 1.08rem; }
 .btn--block { width: 100%; }
+/* CTA de texto longo: quebra em duas linhas no mobile em vez de vazar do
+   container e ser cortado pelo overflow:hidden da secao */
+.btn--wrap { white-space: normal; text-align: center; line-height: 1.25; }
 
 /* ============================== CTA FINAL ========================== */
 .final-cta { text-align: center; scroll-margin-top: 90px; }
