@@ -437,6 +437,15 @@
         unidade: unidade,
         voz: voz,
       });
+      /* Meta Pixel: evento de conclusao do quiz -> publico de retargeting
+         (quem terminou o quiz mas ainda nao clicou no WhatsApp). Broadcast
+         para os pixels inicializados; window.fbq so existe apos o aceite de
+         cookies (tracking.js). Fire-and-forget e SEM dado de saude — leva so
+         a unidade, mesmo criterio do resto do site. A conversao de verdade
+         segue sendo o Contact no clique final. */
+      try {
+        if (window.fbq) window.fbq('trackCustom', 'QuizComplete', { unidade: unidade });
+      } catch (e) {}
     }
   }
 
