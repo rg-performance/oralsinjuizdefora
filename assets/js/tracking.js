@@ -16,7 +16,7 @@
        inteiro de JF — carregar so "o Pixel da unidade" daria meia audiencia
        para cada uma. */
     fbPixelIds: [
-      '2155246258524898', // Centro  · act_984258896091093
+      '2277971833017166', // Centro  · act_984258896091093
       '1379837757571593', // Benfica · act_1947456385756252
     ],
     ga4Id: 'G-KQ41D6MEGZ',   // propriedade 545766061 (uma so p/ as 2 unidades)
